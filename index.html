@@ -1,7 +1,384 @@
-<html>
-  <head>
-  </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact Studios - Game Vault</title>
+<style>
+  /* Modern Futuristic Styles */
+  body {
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:#fff;
+  }
+  header {
+    background:#0ff;
+    color:#000;
+    text-align:center;
+    padding:15px;
+    font-size:2em;
+    font-weight:bold;
+    text-shadow:1px 1px 2px #000;
+  }
+  nav {
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.6);
+    position: relative;
+  }
+  nav > button, .dropdown-btn {
+    margin:0 5px;
+    padding:10px 20px;
+    border:none;
+    background:#222;
+    color:#0ff;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  nav > button:hover, .dropdown-btn:hover {
+    background:#0ff;
+    color:#000;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: rgba(0,0,0,0.9);
+    min-width: 200px;
+    z-index: 1;
+    border-radius:5px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+  }
+  .dropdown-content button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background:#222;
+    color:#0ff;
+    border:none;
+    text-align:left;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .dropdown-content button:hover {
+    background:#0ff;
+    color:#000;
+  }
+  .dropdown.show .dropdown-content {
+    display:block;
+    opacity:1;
+    transform: translateY(0);
+  }
+  section {display:none; padding:20px;}
+  section.active {display:block;}
+  .game-card {margin:10px 0; padding:10px; background:rgba(0,0,0,0.5); border-radius:5px;}
+  #gamesContainer, #websiteEditor {padding:10px; background:rgba(0,0,0,0.3); border-radius:5px;}
+  input,textarea,button {padding:5px;margin:5px;border-radius:3px; border:none;}
+  #chatBox, #questionsList, #recentList {background:rgba(0,0,0,0.3); padding:10px; height:200px; overflow-y:auto; border-radius:5px;}
+  footer {text-align:center; padding:10px; background: rgba(0,0,0,0.5); color:#0ff; font-size:0.9em;}
+</style>
+</head>
 <body>
-  <h1>Hello World</h1>
+
+<header>Impact Studios </header>
+<nav>
+  <button data-tab="home">Home</button>
+  <div class="dropdown">
+    <button class="dropdown-btn">Games ▼</button>
+    <div class="dropdown-content">
+      <button data-tab="SWAT">SWAT Time Shooters 3</button>
+      <button data-tab="Drive">Drive MAD</button>
+      <button data-tab="sas">Swords And Sheilds </button>
+      <button data-tab="drift">Five Nights At Freddys</button>
+      <button data-tab="escape">Escape Road</button>
+      <button data-tab="eaglercraft">EaglercraftX 1.12</button>
+      <button data-tab="credits">Credits</button>
+    
+    </div>
+  </div>
+  <button data-tab="chat">Chat</button>
+  <button data-tab="questions">Q&A</button>
+  <button data-tab="recent">Recent Releases</button>
+  <button data-tab="dev">Dev Panel</button>
+  <button data-tab="v">Profanity</button>
+  
+  
+  
+</nav>
+
+<section id="home" class="active">
+  <p>Choose your username:</p>
+  <input id="usernameInput" placeholder="Enter username">
+  <button onclick="setUsername()">Set Username</button>
+<hr>
+
+<a href="https://ux256a.mimo.run/index.html"> Play Drive Mad</a>
+
+<hr>
+<h4> Next Offical Release On December 28th - We Make Code And Share Projects,Tutiorals On December 20th </h4>
+<hr>
+<h5> Missing Old Games? Some may have moved to the profanity section</h5> 
+
+
+
+
+
+</section>
+
+
+
+<section id="games">
+  <h2>Games</h2>
+  <div id="gamesContainer"></div>
+</section>
+
+<section id="v">
+<h4> By Clicking Continue Below You Are Swearing You Have a Adults Permison, or you are above the wise age of 12. </h4>
+
+
+<form action="pro.html">
+    <input type="submit" value="Go to Profanity Area" />
+</form>
+
+</section>
+
+
+<section id="chat">
+  <h2>Chat</h2>
+  <h3> Web Timeout Error 204, Contact Your Nearest Dev</h3>
+  <div id="chatBox"></div>
+  <input id="chatInput" placeholder="Type a message">
+  <button onclick="sendMessage()">Send</button>
+</section>
+
+<section id="questions">
+  <h2>Q&A / Recommendations</h2>
+  <div id="questionsList"></div>
+  <textarea id="questionInput" placeholder="Ask a question"></textarea>
+  <button onclick="postQuestion()">Post Question</button>
+</section>
+
+<section id="recent">
+  <h2>Recent Releases / Announcements</h2>
+  <input id="announcementText" placeholder="Add Announcement">
+  <button onclick="addAnnouncement()">Add</button>
+  <div id="recentList"></div>
+<hr>
+
+</section>
+
+<section id="dev">
+  <h2>Developer Panel</h2>
+  <input id="devPassword" type="password" placeholder="Enter Dev Password">
+  <button onclick="checkDevPassword()">Enter</button>
+  <div id="devContent" style="display:none;">
+    <h3>Add Game</h3>
+    <input id="gameName" placeholder="Game Name">
+    <textarea id="gameCode" placeholder="Paste full HTML/JS code here"></textarea>
+    <button onclick="addGame()">Add Game</button>
+    <div id="gamesList"></div>
+    <hr>
+    <h3>Edit Website</h3>
+    <textarea id="websiteEditor" placeholder="Paste full website HTML/JS here" style="width:100%;height:200px;"></textarea>
+    <button onclick="saveWebsite()">Save Website</button>
+    <hr>
+    <button onclick="clearData()">Clear Site Data (except games)</button>
+    <button onclick="factoryReset()">Factory Reset</button>
+  </div>
+</section>
+
+<section id="sas"><h2>Stick Fight</h2><iframe src="https://s812a3.mimo.run/index.html" width="1200" height="600"></iframe></section>
+<section id="Drive"><h2>Drift Boss</h2><iframe src="https://igr4lw.mimo.run/index.html" width="1200" height="600"></iframe></section>
+<section id="SWAT"><h2>Slither</h2><iframe src="https://olvz13.mimo.run/index.html" width="1200" height="600"></iframe></section>
+<section id="eaglercraft"><h2>EaglercraftX 1.12 By Jiaxi</h2><iframe src="https://pzvmyz.mimo.run/index.html" width="1200" height="600"></iframe></section>
+<section id="escape"><h2>ESCAPE ROAD BY JONAH SODA</h2><iframe src="https://1vn7ds.mimo.run/index.html" width="1200" height="600"></iframe></section>
+
+<!-- Dev Team Credits -->
+<section id="credits">
+  <h2>Our Dev Team</h2>
+  <div style="line-height:1.5;">
+    <h4>Anay Varia - Web Development Director - OP Status</h4><hr>
+    <h4>Jiaxi Pan - Game Development Director</h4><hr>
+    <h4>Henry Mears - Web Dev</h4><hr>
+    <h4>Jonah Soda - Game Dev - OP Status</h4><hr>
+    <h4>Adrian Liang - Game Dev</h4><hr>
+    <h4>Vincent Liu - Game Dev</h4><hr>
+    <h4>Harman - Web Dev - OP Status</h4><hr>
+    <h4>Yeswin Palla - Alpha Tester - OP Status - Active</h4><hr>
+    <h4>Elisa Moldovan - Alpha Tester - Inactive - Contact IRL To Inform</h4><hr>
+    <h4>Matthew Fruend - Alpha Tester - Inactive - Contact IRL To Inform</h4><hr>
+    <h4>Adwaith - Beta Tester - Active</h4><hr>
+    <h4>We Are Hiring, Contact Us at 2021203@apps.nsd.org</h4>
+  </div>
+</section>
+
+<footer>Impact Studios © 2025</footer>
+
+<script>
+/* ---------- Username ---------- */
+let username = localStorage.getItem('username') || '';
+function setUsername(){
+  const u = document.getElementById('usernameInput').value.trim();
+  if(u){username=u;localStorage.setItem('username',username);alert('Username set!');}
+}
+if(username) document.getElementById('usernameInput').value=username;
+
+/* Password */
+
+let password = localStorage.getItem('password') || '';
+function setpassword(){
+  const u = document.getElementById('passwordInput').value.trim();
+  if(u){password = u;localStorage.setItem('password',password);alert('Password Set')}
+} 
+
+function loadIntoIframe() {
+  var dropdown = document.getElementById("myDropdown");
+  var iframe = document.getElementById("myIframe");
+  iframe.src = dropdown.value;
+}
+/* ---------- Tab & Dropdown ---------- */
+const tabButtons = document.querySelectorAll('nav > button, .dropdown-content button');
+tabButtons.forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    // Close dropdown after selection
+    document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('show'));
+  }
+});
+
+document.querySelector('.dropdown-btn').addEventListener('click', ()=>{
+  document.querySelector('.dropdown').classList.toggle('show');
+});
+
+/* ---------- Dev Panel ---------- */
+let games = JSON.parse(localStorage.getItem('games')) || [];
+let devUnlocked = false;
+function checkDevPassword(){
+  const pwd = document.getElementById('devPassword').value;
+  if(pwd==='LAGOUT'){
+    const confirmPwd = prompt('Type Personal Pin:');
+    if(confirmPwd==='17283935839'){
+      document.getElementById('devContent').style.display='block';
+      username='Impact_Studios_Team';
+      localStorage.setItem('username',username);
+      renderGames();
+      devUnlocked = true;
+    } else alert('Password confirmation failed!');
+  } else alert('Wrong password!');
+}
+
+function saveGames(){ localStorage.setItem('games',JSON.stringify(games)); }
+function renderGames(){
+  const list=document.getElementById('gamesList'); list.innerHTML='';
+  const container=document.getElementById('gamesContainer'); container.innerHTML='';
+  games.forEach((g,i)=>{
+    const div=document.createElement('div'); div.className='game-card';
+    div.innerHTML=`<b>${g.name}</b>
+      <button onclick="fullscreenGame(${i})">Fullscreen</button>
+      <button onclick="editGame(${i})">Edit</button>
+      <button onclick="openGame(${i})">Play</button>`;
+    list.appendChild(div);
+  });
+}
+
+function addGame(){
+  const name=document.getElementById('gameName').value.trim();
+  const code=document.getElementById('gameCode').value.trim();
+  if(name && code){games.push({name,code}); saveGames(); renderGames(); alert('Game added!');}
+}
+
+
+function editGame(i){
+  const name=prompt('Edit game name',games[i].name);
+  const code=prompt('Edit game code',games[i].code);
+  if(name && code){games[i]={name,code}; saveGames(); renderGames();}
+}
+
+function fullscreenGame(i){
+  const elem=document.getElementById(`game-${i}`);
+  if(elem.requestFullscreen) elem.requestFullscreen();
+  else if(elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+  else if(elem.msRequestFullscreen) elem.msRequestFullscreen();
+}
+
+function openGame(i){
+  const container=document.getElementById('gamesContainer');
+  container.innerHTML = `<div id="game-${i}" style="width:100%;min-height:500px;">${games[i].code}</div>`;
+}
+
+/* ---------- Website Editor ---------- */
+function saveWebsite(){
+  const code = document.getElementById('websiteEditor').value;
+  localStorage.setItem('websiteCode', code);
+  alert('Website code saved. Reload page to apply changes.');
+}
+
+/* ---------- Clear / Reset ---------- */
+function clearData(){
+  if(!devUnlocked) return alert('Dev not unlocked!');
+  const gamesBackup = JSON.stringify(games);
+  localStorage.clear();
+  localStorage.setItem('games', gamesBackup);
+  alert('Data cleared except games.');
+}
+
+function factoryReset(){
+  if(!devUnlocked) return alert('Dev not unlocked!');
+  const gamesBackup = JSON.stringify(games);
+  localStorage.clear();
+  localStorage.setItem('games', gamesBackup);
+  location.reload();
+}
+
+/* ---------- Announcements ---------- */
+let announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+function addAnnouncement(){
+  const text = document.getElementById('announcementText').value.trim();
+  if(text){announcements.unshift(text);localStorage.setItem('announcements',JSON.stringify(announcements)); renderRecent();}
+}
+function renderRecent(){
+  const list=document.getElementById('recentList'); list.innerHTML='';
+  announcements.forEach(a=>{const div=document.createElement('div'); div.textContent=a; list.appendChild(div);});
+}
+renderRecent();
+
+/* ---------- Chat ---------- */
+const chatHistory=JSON.parse(localStorage.getItem('chat'))||[];
+function renderChat(){
+  const box=document.getElementById('chatBox'); box.innerHTML='';
+  chatHistory.forEach(c=>{const div=document.createElement('div'); div.innerHTML=`${c.user}: ${c.msg}`; box.appendChild(div);});
+}
+function sendMessage(){
+  const msg=document.getElementById('chatInput').value.trim();
+  if(msg){chatHistory.push({user:username,msg});localStorage.setItem('chat',JSON.stringify(chatHistory));renderChat();document.getElementById('chatInput').value='';}
+}
+renderChat();
+
+/* ---------- Q&A ---------- */
+let questions = JSON.parse(localStorage.getItem('questions'))||[];
+function postQuestion(){
+  const q=document.getElementById('questionInput').value.trim();
+  if(q){questions.unshift({user:username,q});localStorage.setItem('questions',JSON.stringify(questions)); renderQuestions(); document.getElementById('questionInput').value='';}
+}
+function renderQuestions(){
+  const list=document.getElementById('questionsList'); list.innerHTML='';
+  questions.forEach(q=>{const div=document.createElement('div'); div.innerHTML=`${q.user}: ${q.q}`; list.appendChild(div);});
+}
+renderQuestions();
+
+/* ---------- Preload Example Game ---------- */
+if(games.length===0){
+  games.push({name:'Example Game', code:'<div style="color:#0ff;background:#000;padding:20px;">Your game here!</div>'});
+  saveGames(); renderGames();
+}
+</script>
 </body>
 </html>
